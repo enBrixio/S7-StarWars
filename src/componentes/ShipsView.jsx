@@ -1,5 +1,7 @@
-import React from 'react';
-import { useJuanSelector } from "../store";
+// component/ShipsView.jsx
+import React, { useEffect, useState, useCallback } from 'react';
+import { useJuanSelector, useJuanDispatch } from "../store";
+import { fetchStarShips } from '../store/thunks/Thunks';
 import { useNavigate } from 'react-router-dom';
 import Jedi from '../assets/jedi.svg';
 
@@ -7,7 +9,10 @@ export default function ShipsView() {
   const { ships, loading, error, data } = useJuanSelector(
     (state) => state.shipsSlices,
   );
+  const dispatch = useJuanDispatch();
   const navigate = useNavigate();
+  const [page, setPage] = useState(1);
+  const [allDataLoaded, setAllDataLoaded] = useState(false);
 
   // Añadir el ID a cada objeto
   const dataWithIds = data.map(item => {
@@ -18,6 +23,33 @@ export default function ShipsView() {
   const handleImageClick = (id) => {
     navigate(`/ship/${id}`); // Navegar a la página del ship con el ID
   };
+
+  const loadMoreShips = useCallback(async () => {
+    if (allDataLoaded) {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+      return;
+    }
+
+    const result = await dispatch(fetchStarShips(page)).unwrap();
+    if (result.next === null) {
+      setAllDataLoaded(true);
+    }
+  }, [dispatch, page, allDataLoaded]);
+
+  useEffect(() => {
+    loadMoreShips();
+  }, [loadMoreShips]);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      if (window.innerHeight + window.scrollY >= document.documentElement.scrollHeight - 500 && !loading) {
+        setPage(prevPage => prevPage + 1);
+      }
+    };
+
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, [loading]);
 
   return (
     <div className="min-h-screen bg-neutral-800 flex justify-center ">
@@ -35,10 +67,23 @@ export default function ShipsView() {
             </div>
           ))}
         </div>
+        {loading && <div className="text-white text-center">Loading...</div>}
       </div>
     </div>
   );
 }
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

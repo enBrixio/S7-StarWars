@@ -1,3 +1,4 @@
+// store/slices/Ships.js
 import { createSlice } from "@reduxjs/toolkit";
 import { fetchStarShips } from "../thunks/Thunks";
 
@@ -11,21 +12,19 @@ const shipsSlices = createSlice({
     reducers: {
         addShips: (state, action) => action.payload       
     },
-
     extraReducers: (builder) => {
-    builder.addCase(fetchStarShips.pending, (state) => {
-        state.loading = true;
-    });
-    builder.addCase(fetchStarShips.fulfilled, (state, action) => {
-        state.loading = false;
-        state.data = [...state.data, ...action.payload.results]
-    });
-    builder.addCase(fetchStarShips.rejected, (state, action) => {
-        state.loading = false;
-        state.error = action.error;
-    });
-
-}
+        builder.addCase(fetchStarShips.pending, (state) => {
+            state.loading = true;
+        });
+        builder.addCase(fetchStarShips.fulfilled, (state, action) => {
+            state.loading = false;
+            state.data = [...state.data, ...action.payload.results];
+        });
+        builder.addCase(fetchStarShips.rejected, (state, action) => {
+            state.loading = false;
+            state.error = action.error;
+        });
+    }
 }); 
 
 export const { addShips } = shipsSlices.actions;
