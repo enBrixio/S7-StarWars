@@ -8,6 +8,7 @@ const useJuanDispatch = useDispatch
 const store = configureStore({
   reducer: {
     shipsSlices: shipReducer,
+    shipsSlicesImage: shipReducer,
      },
 })
 

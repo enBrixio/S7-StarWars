@@ -1,7 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { fetchStarShips } from "../thunks/Thunks";
-import { data } from "autoprefixer";
-import { act } from "react-dom/test-utils";
 
 const shipsSlices = createSlice({
     name: "ships",

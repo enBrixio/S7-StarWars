@@ -1,5 +1,6 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import { apiSwapi } from "../../config/config";
+import { apiVisualizacion } from "../../config/config";
 
 export const fetchStarShips = createAsyncThunk('starships/ships', async () => {
     try {
@@ -9,3 +10,5 @@ export const fetchStarShips = createAsyncThunk('starships/ships', async () => {
         console.error(error);
       }
   })
+
+
