@@ -9,7 +9,7 @@ import DarthVader from '../assets/darth-vader.png';
 
 function Home(){
     return (
-        <div className="h-screen flex flex-col justify-between items-center" style={{ backgroundImage: `url(${BackgroundImage})`, backgroundSize: 'cover' }}>
+        <div className="h-screen flex flex-col justify-between items-center mb-60" style={{ backgroundImage: `url(${BackgroundImage})`, backgroundSize: 'cover' }}>
             <div className="flex flex-col items-center justify-center text-white pt-24">
                 <h1 className="text-4xl font-bold mb-2">¡Bienvenido a Star Wars!</h1>
                 <p className="text-lg">Explora el universo épico de Star Wars.</p>

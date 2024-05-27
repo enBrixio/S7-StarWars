@@ -53,7 +53,7 @@ export function ShipsPerformance() {
   }
 
   return (
-<div className="min-h-screen bg-neutral-800 flex justify-center px-4 sm:px-6 lg:px-8">
+<div className="min-h-screen bg-neutral-800 flex justify-center px-4 sm:px-6 lg:px-8 mt-60">
   <div className="mt-14 w-full max-w-4xl">
     <h1 className="text-yellow-600 text-4xl mb-10 text-center sm:text-left">{ship.name}</h1>
     <div className="flex flex-col sm:flex-row justify-center items-center sm:items-start">

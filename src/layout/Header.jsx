@@ -11,7 +11,7 @@ export function Header() {
     
     return (
 <>
-    <header className='bg-black'>
+    <header className='bg-black fixed top-0 left-0 right-0 z-50'>
         <div className='container mx-auto'>r
             {/* Contenedor de la fila */}
             <div className='flex justify-between items-center'>
@@ -23,8 +23,8 @@ export function Header() {
                 </div>
                 {/* Contenedor de los elementos de inicio de sesión */}
                 <div className='flex'>
-                    <span className='text-white mt-3 mx-3 cursor-pointer'>Login</span>
-                    <span className='text-white mt-3 mx-3 cursor-pointer'>Sign Up</span>
+                        <Link to="/login" className='text-white mt-3 mx-3 cursor-pointer'>Login</Link>
+                        <Link to="/signup" className='text-white mt-3 mx-3 cursor-pointer'>Sign Up</Link>
                 </div>
             </div>
             {/* Logo */}

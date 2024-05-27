@@ -52,7 +52,7 @@ export default function ShipsView() {
   }, [loading]);
 
   return (
-    <div className="min-h-screen bg-neutral-800 flex justify-center ">
+    <div className="min-h-screen bg-neutral-800 flex justify-center mt-60 ">
       <div className=" mt-14">
         <div className="text-white flex flex-wrap justify-center items-start">
           {!loading && dataWithIds.map((item, index) => (

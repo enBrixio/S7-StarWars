@@ -7,6 +7,8 @@ import { Header } from './layout/Header.jsx';
 import { useJuanDispatch } from './store/index.js';
 import { fetchStarShips } from './store/thunks/Thunks.js';
 import { ShipsPerformance } from './pages/ShipsPerformance.jsx';
+import SignUp from './pages/SignUp.jsx';
+import Login from './pages/Login.jsx';
 
 export default function App() {
   const dispatch = useJuanDispatch();
@@ -22,6 +24,8 @@ export default function App() {
         <Route path="/" element={<Home />} />
         <Route path="/starships" element={<StarshipsList />} />
         <Route path="/ship/:id" element={<ShipsPerformance />} />
+        <Route path="/signup" element={<SignUp />} />
+        <Route path="/login" element={<Login />} />
       </Routes>
     </>
   );
