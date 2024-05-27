@@ -1,29 +1,35 @@
-import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
-import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
-import { auth } from '../services/firebase';
+// Login.jsx
+import React, { useState, useEffect } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
+import { login, selectCurrentUser } from '../store/slices/authSlice'; // Asegúrate de que la ruta sea correcta
 
 function Login() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
   const [success, setSuccess] = useState('');
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const currentUser = useSelector(selectCurrentUser);
 
-  const handleLogin = () => {
-    signInWithEmailAndPassword(auth, email, password)
-      .then((userCredential) => {
-        // Signed in
-        const user = userCredential.user;
-        setSuccess('Logged in successfully!');
-        setError('');
-        // Redirect or perform any additional actions
-      })
-      .catch((error) => {
-        const errorCode = error.code;
-        const errorMessage = error.message;
-        setError(errorMessage);
-        setSuccess('');
-      });
+  useEffect(() => {
+    if (currentUser) {
+      setSuccess('Logged in successfully!');
+      setError('');
+      navigate('/starships');
+    }
+  }, [currentUser, navigate]);
+
+  const handleLogin = async () => {
+    try {
+      await dispatch(login(email, password)).unwrap(); // Desempaqueta la acción asincrónica para manejar errores correctamente
+      setSuccess('Logged in successfully!');
+      setError('');
+    } catch (error) {
+      setError(error.message);
+      setSuccess('');
+    }
   };
 
   return (
@@ -37,10 +43,7 @@ function Login() {
                 <h2 className="text-gray-400 text-center mb-2">Create an account</h2>
                 <form onSubmit={(e) => e.preventDefault()}>
                   <div className="mb-4">
-                    <label
-                      className="block text-gray-400 text-sm font-bold mb-2"
-                      htmlFor="email"
-                    >
+                    <label className="block text-gray-400 text-sm font-bold mb-2" htmlFor="email">
                       Email
                     </label>
                     <input
@@ -53,10 +56,7 @@ function Login() {
                     />
                   </div>
                   <div className="mb-4">
-                    <label
-                      className="block text-gray-400 text-sm font-bold mb-2"
-                      htmlFor="password"
-                    >
+                    <label className="block text-gray-400 text-sm font-bold mb-2" htmlFor="password">
                       Password
                     </label>
                     <input
@@ -100,4 +100,7 @@ function Login() {
 }
 
 export default Login;
+
+
+
 
